@@ -26,13 +26,6 @@ jobs:
           cd client
           npm install
 
-      - name: Build
-        run: |
-          cd client
-          npm run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
 
@@ -44,7 +37,16 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Deploy prebuilt dist to Vercel
+      - name: Build with Vercel
+        run: |
+          cd client
+          vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Deploy prebuilt output to Vercel
         run: |
           cd client
           vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
