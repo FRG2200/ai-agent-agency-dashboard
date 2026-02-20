@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Check, ArrowRight, Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { apiClient, API_ENDPOINTS } from '../api/client';
 
 const ServiceMenu = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // APIから取得（フォールバックでモックデータ）
@@ -149,12 +151,14 @@ const ServiceMenu = () => {
               ))}
             </div>
 
-            <button className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
+            <button
+              onClick={() => navigate(`/services/${service.id}`)}
+              className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
               service.popular 
                 ? 'bg-gradient-to-r from-neo-blue to-neo-cyan text-white hover:opacity-90' 
                 : 'bg-neo-blue/20 text-neo-blue border border-neo-blue/50 hover:bg-neo-blue/30'
             }`}>
-              受注する
+              詳細を見る / 受注する
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
