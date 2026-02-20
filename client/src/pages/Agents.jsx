@@ -35,21 +35,23 @@ const Agents = () => {
   return (
     <div className="space-y-6">
       {/* ヘッダー */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white">エージェント一覧</h2>
-          <p className="text-gray-400 text-sm mt-1">
-            全 <span className="text-white font-bold">{agents.length}</span> 名 ／
-            稼働中 <span className="text-green-400 font-bold">{activeCount}</span> 名 ／
-            待機中 <span className="text-yellow-400 font-bold">{idleCount}</span> 名
-          </p>
+      <div className="space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold text-white">エージェント一覧</h2>
+            <p className="text-gray-400 text-xs sm:text-sm mt-1">
+              全 <span className="text-white font-bold">{agents.length}</span> 名 ／
+              稼働中 <span className="text-green-400 font-bold">{activeCount}</span> 名 ／
+              待機中 <span className="text-yellow-400 font-bold">{idleCount}</span> 名
+            </p>
+          </div>
         </div>
         <input
           type="text"
           placeholder="名前・役職で検索..."
           value={search}
           onChange={e => setSearch(e.target.value)}
-          className="bg-gray-800 text-white text-sm rounded-lg px-4 py-2 border border-neo-blue/20 focus:outline-none focus:border-neo-blue w-56"
+          className="w-full bg-gray-800 text-white text-sm rounded-lg px-4 py-2 border border-neo-blue/20 focus:outline-none focus:border-neo-blue"
         />
       </div>
 
@@ -95,7 +97,7 @@ const Agents = () => {
       </div>
 
       {/* エージェントグリッド */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
         {filtered.map(agent => (
           <div
             key={agent.id}
