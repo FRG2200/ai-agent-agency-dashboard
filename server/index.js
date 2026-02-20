@@ -6,11 +6,30 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Supabase初期化
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
-);
+// Supabase初期化（オプション - 環境変数が設定されていない場合はモックを使用）
+let supabase = null;
+if (process.env.SUPABASE_URL && (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY)) {
+  supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
+  );
+  console.log('✅ Supabase connected');
+} else {
+  console.log('⚠️ Supabase not configured - running in mock mode');
+  // モックSupabaseクライアント
+  const mockQuery = () => ({
+    select: mockQuery,
+    insert: () => Promise.resolve({ data: null, error: null }),
+    update: mockQuery,
+    eq: mockQuery,
+    gte: mockQuery,
+    order: mockQuery,
+    limit: () => Promise.resolve({ data: [], error: null, count: 0 }),
+    single: () => Promise.resolve({ data: null, error: null }),
+    then: (resolve) => resolve({ data: [], error: null, count: 0 }),
+  });
+  supabase = { from: () => mockQuery() };
+}
 
 // ミドルウェア
 const corsOptions = {
