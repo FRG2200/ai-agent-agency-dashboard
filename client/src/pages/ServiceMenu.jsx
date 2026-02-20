@@ -77,48 +77,6 @@ const ServiceMenu = () => {
 
     fetchServices();
   }, []);
-      {
-        id: 'youtube',
-        icon: '🎬',
-        title: 'YouTube運用代行',
-        price: '¥30,000',
-        priceUnit: '/月',
-        description: 'AIが企画・脚本・編集・投稿を完全自動化',
-        features: ['週3本投稿', 'SEO最適化', '分析レポート', 'サムネイル自動生成'],
-        popular: true
-      },
-      {
-        id: 'content',
-        icon: '✍️',
-        title: 'コンテンツ制作',
-        price: '¥10,000',
-        priceUnit: '/月',
-        description: 'ブログ・メルマガ・SNS投稿を自動生成',
-        features: ['note週2本', 'SNS投稿1日3回', 'メルマガ週1回', 'SEO対策込み'],
-        popular: false
-      },
-      {
-        id: 'sales',
-        icon: '💼',
-        title: '営業代行',
-        price: '¥50,000',
-        priceUnit: '/月',
-        description: 'リード生成から商談設定まで自動化',
-        features: ['月500リード発掘', 'AI営業メール', '商談設定', 'CRM連携'],
-        popular: false
-      },
-      {
-        id: 'automation',
-        icon: '⚙️',
-        title: '業務自動化',
-        price: '¥100,000',
-        priceUnit: '〜',
-        description: '受注から納品までのワークフロー構築',
-        features: ['カスタム構築', 'N8N連携', '24時間稼働', '専任サポート'],
-        popular: false
-      }
-    ]);
-  }, []);
 
   return (
     <div className="space-y-8">
