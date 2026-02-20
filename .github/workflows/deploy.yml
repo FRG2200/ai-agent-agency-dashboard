@@ -53,8 +53,12 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
+        working-directory: ./server
         run: |
-          cd server
-          railway up --service ai-agent-agency-api
+          railway up \
+            --project 9bee21ba-7ab2-4e4f-bf2a-0f37c1694732 \
+            --service c55c8564-dbf9-4d99-9e8c-fa75be55d743 \
+            --environment 411a17cb-f6b2-4c31-b052-3a246434a58d \
+            --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN2 }}
