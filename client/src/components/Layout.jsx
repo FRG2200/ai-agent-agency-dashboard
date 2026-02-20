@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, GitBranch, Zap, Users, Activity } from 'lucide-react';
+import { LayoutDashboard, Briefcase, GitBranch, Zap, Users, Activity, LogOut, User } from 'lucide-react';
+import { useAgents } from '../context/AgentContext';
 
 const Layout = ({ children }) => {
   const location = useLocation();
+  const { activeCount, totalCount, currentUser, logout } = useAgents();
 
   const navItems = [
     { path: '/', icon: Briefcase, label: 'サービス' },
@@ -30,12 +32,34 @@ const Layout = ({ children }) => {
               <p className="text-xs text-gray-400">AI Organization Management</p>
             </div>
           </div>
-          
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-3">
+            {/* 稼働人数（動的） */}
             <span className="flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
               <span className="w-2 h-2 bg-green-400 rounded-full status-dot"></span>
-              10名稼働中 / 全13名
+              {activeCount}名稼働中 / 全{totalCount}名
             </span>
+
+            {/* ユーザー情報 */}
+            {currentUser && (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-1 bg-neo-blue/10 text-neo-blue rounded-full text-sm border border-neo-blue/20">
+                  <User className="w-3.5 h-3.5" />
+                  <span>{currentUser.name}</span>
+                  {currentUser.role === 'admin' && (
+                    <span className="text-xs bg-neo-blue/20 px-1.5 py-0.5 rounded text-neo-cyan">管理者</span>
+                  )}
+                </div>
+                <button
+                  onClick={logout}
+                  className="flex items-center gap-1.5 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-full text-sm transition-all"
+                  title="ログアウト"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">ログアウト</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
