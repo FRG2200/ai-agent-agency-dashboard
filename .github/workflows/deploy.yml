@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Frontend deployment (Vercel) - commented out until Vercel secrets are configured
   # deploy-frontend:
   #   name: Deploy Frontend to Vercel
   #   runs-on: ubuntu-latest
