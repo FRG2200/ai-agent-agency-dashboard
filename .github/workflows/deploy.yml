@@ -35,9 +35,6 @@ jobs:
       - name: Deploy to Vercel
         run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
 
-
-        working-directory: ./client
-
   deploy-backend:
     name: Deploy Backend to Railway
     runs-on: ubuntu-latest
